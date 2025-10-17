@@ -67,7 +67,7 @@ sub make_header { my ($additional_title, $path, $base) = @_;
     =~ s,\Q{{url}}\E,$url,gr
     =~ s,\Q{{resources}}\E,$resources,gr
     =~ s,\Q{{stylehash}}\E,hash('res/style.min.css'),gre
-    =~ s,\Q{{filter}}\E,اكتب لتصفية المصطلحات المعروضة,gr
+    =~ s,\Q{{filter}}\E,اكتب لتصفية المصطلحات,gr
     # =~ s,^( *)\Q{{stylesheet}}\E\n,slurp('res/style.min.css'),mgre
     # =~ s,^( *)\Q{{stylesheet}}\E\n,
     #   my $indent = $1;
@@ -211,7 +211,8 @@ while (<$tfile>) {
   my @re = split / /, $re // '';
   my $ysmu = @re && $re[0] eq '@';
   shift @re if $ysmu;
-  for my $r (@re) { if (!exists $titles{$r =~ s/_/ /gr}) { warn "Related term '$r' doesn't exist; used in '$en[0]'.\n" } }
+  for my $r (@re) { $r =~ s/_/ /g; if (!exists $titles{$r}) { warn "Related term '$r' doesn't exist; used in '$en[0]'.\n" } }
+  for my $r (@re) { $r =~ s/_/ /g; my @m = grep /^$r$/, @en; if (@m) { warn "Related term '$r' links to the same term: '$m[0]'.\n" } }
   printf { $hfile } qq[<div id="%s">], to_id for @en;
   printf { $hfile } qq[\n];
   printf { $hfile } qq[  <div class="t" lang="en">];

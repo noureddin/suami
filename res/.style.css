@@ -106,6 +106,7 @@ div[id]:target {
 .t>p, .d>p, .r>p {
   margin: 0.25em;
   padding: 0.25em;
+  border-radius: 0.2em;
 }
 
 .r {
@@ -203,7 +204,9 @@ footer a[dir="ltr"] {
   color: inherit;
   background: inherit;
   border: 0.1em solid var(--lo);
-  border-radius: 1em;
+  padding: 0.35em 0.25em;
+  line-height: 1.5;
+  border-radius: 5em;  /* make left and right sides a single arc each */
 }
 
 #f:focus,
