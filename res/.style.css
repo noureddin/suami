@@ -16,15 +16,12 @@
 
 /* light-mode colors */
 :root {
-  --bg: #d8d4d0;
+  --bg: #eeeeee;
   --fg: #101010;
   --lo: #404040;
-  --en: #1810a040;
-  --eno:#1810a010;
-  --ar: #18601040;
-  --aro:#18601010;
-  --re: #80101040;
-  --reo:#80101010;
+  --en: #1810a010;
+  --ar: #18601010;
+  --re: #80101010;
   --al: #004080;
   --ah: #009060;
   --aa: #c08000;
@@ -40,12 +37,9 @@
   --bg: #1c0e00;
   --fg: #d0d0d0;
   --lo: #808080;
-  --en: #181060a0;
-  --eno:#18106040;
-  --ar: #184010a0;
-  --aro:#18401040;
-  --re: #501010a0;
-  --reo:#50101040;
+  --en: #18106050;
+  --ar: #18401040;
+  --re: #50101050;
   --al: #6080a0;
   --ah: #00e0a0;
   --aa: #e0b000;
@@ -99,9 +93,9 @@ div[id]:target {
   100%  { outline: 0.1em solid var(--hi0); background: var(--hi0) }
 }
 
-.t>p { border: 0.1rem solid var(--en); background: var(--eno) }
-.d>p { border: 0.1rem solid var(--ar); background: var(--aro) }
-.r>p { border: 0.1em  solid var(--re); background: var(--reo) }
+.t>p { background: var(--en) }
+.d>p { background: var(--ar) }
+.r>p { background: var(--re) }
 
 .t>p, .d>p, .r>p {
   margin: 0.25em;

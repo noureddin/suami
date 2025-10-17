@@ -43,7 +43,7 @@ use constant HEADER => <<'END_OF_TEXT'=~ s,\n\Z,,r;  # to use say with almost ev
 <header>
   <p class="title">{{header_title}}</p>
 </header>
-<input id="f" type="search" dir="ltr" lang="en" placeholder="🔍 {{filter}}" aria-label="{{filter}}">
+<input id="f" type="search" dir="ltr" lang="en" placeholder="{{filter}}" aria-label="{{filter}}">
 END_OF_TEXT
 
 sub make_header { my ($additional_title, $path, $base) = @_;
