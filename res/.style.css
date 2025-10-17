@@ -1,0 +1,269 @@
+/* GENERAL {{{1 */
+
+/* most of this is highly inspired by the sibling project from the same author: Ysmu */
+
+/** KacstOne; GNU GPLv2; from the debian package fonts-kacst-one version 5.0+svn11846-10 modified 2019-09-22; see ksubset.sh **/
+@font-face {
+  font-family: KacstOne;
+  font-style: normal;
+  font-weight: 400;
+  src: local('KacstOne'),
+       url("res/KacstOne-subset.woff2") format("woff2"),
+       url("res/KacstOne-subset.woff") format("woff");
+  font-display: swap;
+  /* if found locally, use it, otherwise use another local font, until this loads. */
+}
+
+/* light-mode colors */
+:root {
+  --bg: #d8d4d0;
+  --fg: #101010;
+  --lo: #404040;
+  --en: #1810a040;
+  --eno:#1810a010;
+  --ar: #18601040;
+  --aro:#18601010;
+  --re: #80101040;
+  --reo:#80101010;
+  --al: #004080;
+  --ah: #009060;
+  --aa: #c08000;
+  --hif:#666f;
+  --hi4:#6664;
+  --hi0:#6660;
+  --fl: #fff8;
+  --op: 0.5;
+}
+
+/* dark-mode colors */
+@media (prefers-color-scheme: dark) { :root {
+  --bg: #1c0e00;
+  --fg: #d0d0d0;
+  --lo: #808080;
+  --en: #181060a0;
+  --eno:#18106040;
+  --ar: #184010a0;
+  --aro:#18401040;
+  --re: #501010a0;
+  --reo:#50101040;
+  --al: #6080a0;
+  --ah: #00e0a0;
+  --aa: #e0b000;
+  --hif:#888f;
+  --hi4:#8884;
+  --hi0:#8880;
+  --fl: #0005;
+  --op: 0.35;
+}}
+
+* { box-sizing: border-box }
+
+html, body {
+  font-size: 18px;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+[lang="ar"] {
+  font-family: KacstOne, "Noto Sans Arabic", "Noto Sans" /* for the double parentheses */, sans-serif;
+  line-height: 1.8;
+  direction: rtl;  /* needed because the container (div[id]) has direction:ltr below */
+}
+
+[lang="en"] {
+  font-size: 95%;
+  font-family: "Noto Sans", sans-serif;
+}
+
+body {
+  width: 35em;
+  max-width: 95%;
+  margin: 2em auto;
+}
+
+p > br {  /* separate pseudo-paragraphs in the same meaning */
+  /* https://stackoverflow.com/a/31633969 - may not work on Safari, but that's not a big issue */
+  display: block; /* make it have a width */
+  content: ""; /* clear default height */
+  margin-top: 0.5em; /* change the height */
+}
+
+/* TERMS STYLING {{{1 */
+
+div[id]:target {
+  animation: hili 3s ease-out;
+}
+
+@keyframes hili {
+  0%    { outline: 0.1em solid var(--hif); background: var(--hi4) }
+  100%  { outline: 0.1em solid var(--hi0); background: var(--hi0) }
+}
+
+.t>p { border: 0.1rem solid var(--en); background: var(--eno) }
+.d>p { border: 0.1rem solid var(--ar); background: var(--aro) }
+.r>p { border: 0.1em  solid var(--re); background: var(--reo) }
+
+.t>p, .d>p, .r>p {
+  margin: 0.25em;
+  padding: 0.25em;
+}
+
+.r {
+  direction: rtl;
+  font-size: 85%;
+}
+.r > p {
+  display: inline-block;
+  direction: ltr;
+}
+
+.t a {
+  color: var(--fg);
+  text-decoration: var(--lo) underline;
+  text-underline-offset: 0.25em;
+}
+
+.r a {
+  color: var(--lo);
+  text-decoration: underline;
+}
+
+/* TERMS LAYOUT {{{1 */
+
+@media (min-width: 412px) {
+  div[id] { direction: ltr }  /* show the English terms on left, and on top on narrow screens */
+  .t, .d, .r { vertical-align: top }
+  .t { width: 35%; float: left }
+  .d { width: 65%; float: right }
+  .r {
+    clear: right;
+    display: content;
+    margin-bottom: 0;
+  }
+}
+
+br.c {
+  clear: left;
+  margin: 0;
+  padding: 0;
+  display: block;
+  content: "";
+  margin-bottom: 1em;
+}
+
+/* LINKS in terms and footer {{{1 */
+
+/* 'important' here is intentional */
+
+a:hover, a:focus {
+  color: var(--ah) !important;
+  text-decoration: underline !important;
+}
+a:active {
+  color: var(--aa) !important;
+}
+
+/* FOOTER {{{1 */
+
+a {
+  color: var(--al);
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+footer {
+  text-align: center;
+  color: var(--lo);
+  border-top: 0.05em solid var(--lo);
+  margin-top: 1em;
+}
+
+footer a[dir="ltr"] {
+  font-family: monospace;
+}
+
+.blurred {
+  opacity: var(--op);
+  transition: 0.5s;
+}
+.blurred:hover { opacity: 1 }
+
+.license {
+  font-size: 85%;
+}
+
+/* FILTER {{{1 */
+
+#f {
+  font-family: inherit;
+  margin: 1em 0 2em 0;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  color: inherit;
+  background: inherit;
+  border: 0.1em solid var(--lo);
+  border-radius: 1em;
+}
+
+#f:focus,
+#f:active {
+  background: var(--fl);
+}
+#f:placeholder-shown {
+  direction: rtl;
+}
+
+p.empty {
+  text-align: center;
+  margin: 0 0 2em 0;
+}
+
+/* LOGOS {{{1 */
+
+/* Suami logo (in the header) */
+
+.title {
+  font-size: 133%;
+  text-align: center;
+  margin: 2em 0 0.5em 0;
+}
+
+.logo > span {
+  display: none;
+}
+
+.logo {
+  background: url(favicon.svg);
+  display: inline-block;
+  height: 1.3em;
+  width: 1.3em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.4em;
+}
+
+/* Ysmu logo (links in related-items) */
+
+a.y > span {
+  display: none;
+}
+
+a.y {
+  background: url(../../ysmu/etc/favicon.svg);
+  display: inline-block;
+  height: 1.3em;
+  width: 1.3em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.4em;
+  transition: 0.5s filter;
+}
+
+a.y { filter: brightness(0.95); }
+a.y:hover { filter: brightness(1.1) }
+
+@media (prefers-color-scheme: dark) {
+  a.y { filter: brightness(0.75); transition: 0.5s }
+  a.y:hover { filter: brightness(1) }
+}
+
+/* vim: set foldmethod=marker foldmarker={{{,}}} : */
