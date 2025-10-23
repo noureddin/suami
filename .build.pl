@@ -101,7 +101,7 @@ use constant FOOTER => <<'END_OF_TEXT' =~ s,\n\Z,,r;  # to use say with almost e
   </p>
   # <p class="blurred">الترجمة المختصرة بصيغة TSV للتطبيقات والمعاجم: <a rel=alternate type=text/tab-separated-values lang="en" dir="ltr" href="suami.tsv">suami.tsv</a> (انظر <a href="FORMAT.ar.md">شرح الصيغة</a>)</p>
   <p class="license blurred">الرخصة: <a rel="noreferrer noopener license" lang="en" href="https://creativecommons.org/publicdomain/zero/1.0/deed.ar">Creative Commons Zero (CC0)</a> (مكافئة للملكية العامة)</p>
-  <p class="license blurred">الشارة من <a rel="noreferrer noopener" href="https://twemoji.twitter.com/">Twemoji</a> (بترخيص CC-BY 4.0)</p>
+  <p class="license blurred">الشعار من <a rel="noreferrer noopener" href="https://twemoji.twitter.com/">Twemoji</a> (بترخيص CC-BY 4.0)</p>
 </footer>
 <script>
   var emptyresult = document.getElementsByClassName('empty')[0]
