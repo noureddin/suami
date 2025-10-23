@@ -24,7 +24,10 @@
 <header>
   <p class="title">مسرد السوامي <span class="logo"><span>🎆</span></span> للمصطلحات والعبارات التقنية</p>
 </header>
-<input id="f" type="search" dir="ltr" lang="en" placeholder="اكتب لتصفية المصطلحات" aria-label="اكتب لتصفية المصطلحات">
+<form action="/suami/" method="GET">
+<input id="f" name="q" type="search" dir="ltr" lang="en" placeholder="اكتب لتصفية المصطلحات" aria-label="اكتب لتصفية المصطلحات">
+<button id="sub" type="submit" style="visibility:hidden;font-size:1pt;position:absolute;top:0">Search</button>
+</form>
 <div id="two-factor_authentication"><div id="2fa">
   <div class="t" lang="en"><p><a href="#two-factor_authentication">two-factor authentication</a></p><p><a href="#2fa">2FA</a></p></div>
   <div class="d" lang="ar"><p>استيثاق ثنائي.</p></div>
@@ -239,7 +242,12 @@
   }
   onload = function () {
     var f = document.getElementById('f')
-    f.oninput = function () { filter_terms(this.value) }
+    f.oninput = function () { filter_terms(f.value) }
+    document.getElementById('sub').onsubmit = function () { filter_terms(f.value) }
+    if (location.search) {
+      const vals = location.search.split(/[?&]/).filter(kv => kv.startsWith('q='))
+      if (vals.length) { f.value = decodeURI(vals[0].split('=')[1]) }
+    }
     if (f.value) { filter_terms(f.value) }
   }
 </script>

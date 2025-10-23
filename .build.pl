@@ -43,7 +43,10 @@ use constant HEADER => <<'END_OF_TEXT'=~ s,\n\Z,,r;  # to use say with almost ev
 <header>
   <p class="title">{{header_title}}</p>
 </header>
-<input id="f" type="search" dir="ltr" lang="en" placeholder="{{filter}}" aria-label="{{filter}}">
+<form action="/suami/" method="GET">
+<input id="f" name="q" type="search" dir="ltr" lang="en" placeholder="{{filter}}" aria-label="{{filter}}">
+<button id="sub" type="submit" style="visibility:hidden;font-size:1pt;position:absolute;top:0">Search</button>
+</form>
 END_OF_TEXT
 
 sub make_header { my ($additional_title, $path, $base) = @_;
@@ -128,7 +131,12 @@ use constant FOOTER => <<'END_OF_TEXT' =~ s,\n\Z,,r;  # to use say with almost e
   }
   onload = function () {
     var f = document.getElementById('f')
-    f.oninput = function () { filter_terms(this.value) }
+    f.oninput = function () { filter_terms(f.value) }
+    document.getElementById('sub').onsubmit = function () { filter_terms(f.value) }
+    if (location.search) {
+      const vals = location.search.split(/[?&]/).filter(kv => kv.startsWith('q='))
+      if (vals.length) { f.value = decodeURI(vals[0].split('=')[1]) }
+    }
     if (f.value) { filter_terms(f.value) }
   }
 </script>
