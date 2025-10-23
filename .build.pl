@@ -24,7 +24,7 @@ use constant HEADER => <<'END_OF_TEXT'=~ s,\n\Z,,r;  # to use say with almost ev
   <meta property="og:locale" content="ar_AR">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{title}}">
-  <meta property="og:image" content="cover.png">
+  <meta property="og:image" content="{{url}}cover.png">
   <meta property="og:image:width" content="1120"/>
   <meta property="og:image:height" content="630"/>
   <meta property="og:description" content="{{description}}">
