@@ -105,11 +105,12 @@ use constant FOOTER => <<'END_OF_TEXT' =~ s,\n\Z,,r;  # to use say with almost e
 </footer>
 <script>
   var emptyresult = document.getElementsByClassName('empty')[0]
+  var empty_regex = new RegExp('', 'g')
   function normalize_text (t) {
     return (t
       .toLowerCase()
       .replace(/[\u0640\u064B-\u065F]+/g, '')
-      .replace(/[-_\\\s,،.;؛?؟!()\[\]{}]+/g, ' ')
+      .replace(/[-\s_\\,،.;:؛?؟!*()\[\]{}'"\xa0\n]+/g, ' ')
       .replace(/^ +| +$/g, '')
       )
   }
@@ -119,11 +120,27 @@ use constant FOOTER => <<'END_OF_TEXT' =~ s,\n\Z,,r;  # to use say with almost e
     var empty = true
     for (var i = 0; i < tt.length; ++i) {
       var t = tt[i]
+      if (t.innerHTML.match(/mark>/)) { t.innerHTML = t.innerHTML.replace(/<\/?mark>/g, '') }
       if (normalize_text(t.textContent).indexOf(nq) === -1) {
         t.style.display = 'none'
       }
       else {
         t.style.display = 'block'
+        var nqr = new RegExp('(' + nq.replace(/(?=.)/g,
+            "[-\\s_\\\\,،.;:؛?؟!*()\\[\\]{}'\"\xa0\\n\u0640\u064B-\u065F]*")
+            .replace(/^[^*]+\*[^*]+\*/, '')
+            .replace(/ /g, '[ \xa0]')
+          + ')', 'gi')
+        for (let sp of t.querySelectorAll('span')) {
+          if (normalize_text(sp.textContent).indexOf(nq) !== -1) {
+            sp.innerHTML = sp.innerHTML
+              .replace(/&nbsp;/g, '\xa0')
+              .replace(/<br>/g, '\n')
+              .replace(nqr, '<mark>$1</mark>')
+              .replace(/\n/g, '<br>')
+              .replace(/\xa0/g, '&nbsp;')
+          }
+        }
         empty = false
       }
     }
@@ -221,18 +238,19 @@ while (<$tfile>) {
   shift @re if $ysmu;
   for my $r (@re) { $r =~ s/_/ /g; if (!exists $titles{$r}) { warn "Related term '$r' doesn't exist; used in '$en[0]'.\n" } }
   for my $r (@re) { $r =~ s/_/ /g; my @m = grep /^$r$/, @en; if (@m) { warn "Related term '$r' links to the same term: '$m[0]'.\n" } }
+  # all text content is in <span> for highlighting when filtering
   printf { $hfile } qq[<div id="%s">], to_id for @en;
   printf { $hfile } qq[\n];
   printf { $hfile } qq[  <div class="t" lang="en">];
-    printf { $hfile } qq[<p><a href="#%s">%s</a></p>], to_id, enfmt for @en;  # the English terms
+    printf { $hfile } qq[<p><a href="#%s"><span>%s</span></a></p>], to_id, enfmt for @en;  # the English terms
     printf { $hfile } qq[</div>\n];
   printf { $hfile } qq[  <div class="d" lang="ar">];
-    printf { $hfile } qq[<p>%s</p>], arfmt for @ar;
+    printf { $hfile } qq[<p><span>%s</span></p>], arfmt for @ar;
     printf { $hfile } qq[</div>\n];
   printf { $hfile } qq[  <div class="r" lang="en">];
     printf { $hfile } YsmuButtonFmt, to_id $en[0] if $ysmu;
     printf { $hfile } "\n    " if $ysmu && @re;
-    printf { $hfile } qq[<p><a href="#%s">%s</a></p>], to_id, refmt for @re;
+    printf { $hfile } qq[<p><a href="#%s"><span>%s</span></a></p>], to_id, refmt for @re;
     printf { $hfile } qq[</div>\n];
   printf { $hfile } qq[  <br class="c">\n];
   printf { $hfile } qq[</div>] for @en;

@@ -41,6 +41,8 @@ body {
   color: var(--fg);
 }
 
+mark { background: var(--mk) }
+
 [lang="ar"] {
   font-family: KacstOne, "Noto Sans Arabic", "Noto Sans" /* for the double parentheses */, sans-serif;
   /* font-family: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Noto Sans" /1* for the double parentheses *1/, sans-serif; */

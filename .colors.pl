@@ -47,6 +47,9 @@ rec fg => 240, 50, 10;
 rec lo =>   0,  0, 35;
 rec ll =>   0,  0, 50;
 
+# mark (matching filter)
+rec mk => 70, 100, 85, 55;
+
 # block colors
 blk en => 200;  # blueish
 blk ar => 120;  # green

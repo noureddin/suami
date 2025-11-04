@@ -41,6 +41,7 @@
   --fl: #fff;
   --ll: #777777;
   --lo: #525252;
+  --mk: #F7D200;
   --op: 0.5;
   --re: #E3D1C880;
   --sh: #0004;
@@ -56,6 +57,7 @@
   --fl: #000;
   --ll: #626262;
   --lo: #898989;
+  --mk: #9A8200;
   --op: 0.35;
   --re: #593200a0;
   --sh: #000;
@@ -69,6 +71,8 @@ body {
   /* background-image: url(pat.svg);  /1* author's own design; CC0 (Public Domain) *1/ */
   color: var(--fg);
 }
+
+mark { background: var(--mk) }
 
 [lang="ar"] {
   font-family: KacstOne, "Noto Sans Arabic", "Noto Sans" /* for the double parentheses */, sans-serif;

@@ -17,3 +17,5 @@ res/style.css: res/.style.css ._colors.css
 
 ._colors.css: .colors.pl
 	perl "$<" > "$@"
+
+# Colors are defined in .colors.pl as CSS variables, then used in res/.style.css
