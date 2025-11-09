@@ -1,6 +1,6 @@
 C=deno run --quiet --allow-read --allow-env=HTTP_PROXY,http_proxy npm:clean-css-cli
 
-index.html: .build.pl suami.tsv res/style.min.css res/pat.svg
+index.html: .build.pl ysmu.tsv res/style.min.css res/pat.svg
 	perl .build.pl
 
 res/pat.svg: res/.pat.svg ._colors-svg.css
