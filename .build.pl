@@ -187,7 +187,7 @@ sub arfmt(_) {  # formating Arabic translations
   return $_[0]
     =~ s/  /<br>/gr
     =~ s/\Q(ج: \E/(ج:\N{NBSP}/gr
-    =~ s/\{\{([^{}]+)\}\}<br>/\N{LEFT DOUBLE PARENTHESIS}$1\N{RIGHT DOUBLE PARENTHESIS}<br>/gr
+    =~ s/\{\{([^{}]+)\}\}/\N{LEFT DOUBLE PARENTHESIS}$1\N{RIGHT DOUBLE PARENTHESIS}/gr
 }
 
 my %titles;  # used in the related terms
